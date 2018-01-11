@@ -1,0 +1,10 @@
+--- #Playbook for the tomcat installation
+- hosts: all
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  connection: ssh
+  roles:
+    - jdk
+    - tomcat

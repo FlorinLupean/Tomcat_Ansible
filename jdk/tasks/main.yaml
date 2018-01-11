@@ -1,0 +1,33 @@
+---
+- name: Create Java directory
+  command: 'mkdir -p /usr/java'
+
+- name: Download Java archive
+  get_url:
+    url: "http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.tar.gz"
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest: /usr/java/jdk-8u151-linux-x64.tar.gz
+
+- name: Extract Java tar to /usr/java
+  unarchive:
+    src: /usr/java/jdk-8u151-linux-x64.tar.gz
+    dest: /usr/java
+    copy: no
+ 
+- name: Make JAVA an alternative with highest priority
+  alternatives:
+    name: java
+    path: /usr/java/jdk1.8.0_151/bin/java
+    link: /usr/bin/java
+    priority: 20000
+- name: Set the installed JAVA as default    
+  command: update-alternatives --auto java
+
+- name: Make JAVAC an alternative with highest priority
+  alternatives:
+    name: javac
+    path: /usr/java/jdk1.8.0_151/bin/javac
+    link: /usr/bin/javac
+    priority: 20000
+- name: Set the installed JAVAC as default
+  command: update-alternatives --auto javac
