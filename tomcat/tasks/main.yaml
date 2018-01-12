@@ -23,6 +23,7 @@
   unarchive:
     src: /tmp/apache-tomcat.tar.gz
     dest: /opt/tomcat
+    copy: no
 
 - name: Set permissions to TOMCAT folders/files
   command: chgrp -R tomcat /opt/tomcat
